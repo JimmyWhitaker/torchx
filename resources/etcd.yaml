@@ -22,34 +22,34 @@ metadata:
   name: etcd-server
 spec:
   containers:
-    - command:
-        - /usr/local/bin/etcd
-        - --data-dir
-        - /var/lib/etcd
-        - --enable-v2
-        - --name
-        - etcd-server
-        - --initial-advertise-peer-urls
-        - http://etcd-server:2380
-        - --listen-peer-urls
-        - http://0.0.0.0:2380
-        - --listen-client-urls
-        - http://0.0.0.0:2379
-        - --advertise-client-urls
-        - http://etcd-server:2379
-        - --initial-cluster
-        - etcd-server=http://etcd-server:2380
-        - --initial-cluster-state
-        - new
+    - name: etcd-server
       image: quay.io/coreos/etcd:latest
-      name: etcd-server
+      command:
+          - /usr/local/bin/etcd
+          - --data-dir
+          - /var/lib/etcd
+          - --enable-v2
+          - --name
+          - etcd-server
+          - --initial-advertise-peer-urls
+          - http://etcd-server:2380
+          - --listen-peer-urls
+          - http://0.0.0.0:2380
+          - --listen-client-urls
+          - http://0.0.0.0:2379
+          - --advertise-client-urls
+          - http://etcd-server:2379
+          - --initial-cluster
+          - etcd-server=http://etcd-server:2380
+          - --initial-cluster-state
+          - new
       ports:
-        - containerPort: 2379
-          name: client
-          protocol: TCP
-        - containerPort: 2380
-          name: server
-          protocol: TCP
+      - containerPort: 2379
+        name: client
+        protocol: TCP
+      - containerPort: 2380
+        name: server
+        protocol: TCP
   restartPolicy: Always
 
 ---
